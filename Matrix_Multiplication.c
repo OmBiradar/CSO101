@@ -3,44 +3,55 @@
 
 int main()
 {
-    int n;
-    scanf("%d", &n);
-    int* matrix1 = (int*)malloc(n * n * sizeof(int));
-    int* matrix2 = (int*)malloc(n * n * sizeof(int));
-    
-    for (int i=0; i<n*n; i++)
-    {
-        scanf("%d", &matrix1[i]);
-    }
-    
-    for (int i=0; i<n*n; i++)
-    {
-        scanf("%d", &matrix2[i]);
-    }
-    
-    int* matrixout = (int*)calloc(n * n, sizeof(int));
-    
-    for (int i=0; i<n; i++)
-    {
-        for (int j=0; j<n; j++)
+    int n, m;
+    printf("Enter the dimentions of the first matrix \t");
+    scanf("%dx%d", &n, &m);
+    printf("Enter the dimentions of the second matrix \t");
+    int a, o;
+    scanf("%dx%d", &a, &o);
+    if(a==m){
+
+        int* matrix1 = (int*)malloc(n * m * sizeof(int));
+        int* matrix2 = (int*)malloc(m * o * sizeof(int));
+        
+        for (int i=0; i<n*m; i++)
         {
-            for (int k = 0 ; k < n; k++){
-                matrixout[i*n + j] += matrix1[i*n + k] * matrix2[k*n + j];   
+            scanf("%d", &matrix1[i]);
+        }
+        
+        for (int i=0; i<m*o; i++)
+        {
+            scanf("%d", &matrix2[i]);
+        }
+        
+        int* matrixout = (int*)calloc(n * o, sizeof(int));
+        
+        for (int i=0; i<n; i++)
+        {
+            for (int j=0; j<o; j++)
+            {
+                for (int k = 0 ; k < m; k++){
+                    matrixout[i*o + j] += matrix1[i*m + k] * matrix2[k*o + j];   
+                }
             }
         }
+        
+        free(matrix1);
+        free(matrix2);
+        
+        for (int i=0 ;i<n*o; i++)
+        {
+            if(i%n == 0)
+                printf("\n");
+            printf("%2d ", matrixout[i]);
+        }
+        
+        free(matrixout);
+        
+        return 0;
+    }else{
+        printf("The matrixes are not compatable for multiplicatoin!");
+        return 0;
     }
     
-    free(matrix1);
-    free(matrix2);
-    
-    for (int i=0 ;i<n*n; i++)
-    {
-        if(i%n == 0)
-            printf("\n");
-        printf("%2d ", matrixout[i]);
-    }
-    
-    free(matrixout);
-    
-    return 0;
 }
